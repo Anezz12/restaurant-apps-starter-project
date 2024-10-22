@@ -13,9 +13,36 @@ body {
   background-color: #ffffff;
 }
 
+.skip-to-content {
+  position: absolute;
+  top: -999px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1b2430;
+  color: white;
+  padding: 12px 24px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
 a {
   text-decoration: none;
   color: inherit;
+  display: inline-block;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .container {
@@ -70,6 +97,10 @@ nav.navbar-active {
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 1.2px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-brand span {
@@ -87,7 +118,11 @@ nav.navbar-active {
   font-weight: 500;
   transition: color 0.3s, transform 0.2s;
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 12px 24px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link::after {
@@ -112,11 +147,13 @@ nav.navbar-active {
 }
 
 .hamburger {
+  min-width: 44px;
+  min-height: 44px;
   display: none;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
   z-index: 10;
 }
 
