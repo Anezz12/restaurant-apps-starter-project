@@ -33,12 +33,13 @@ a {
   padding: 1rem 2rem;
   z-index: 100;
   transition: top 0.3s;
-
-  &:focus {
-    top: 0;
-  }
 }
 
+.to-content:focus {
+  top: 0;
+}
+
+/* Navigation Styles */
 nav {
   width: 100%;
   background-color: #1b2430;
@@ -47,11 +48,11 @@ nav {
   top: 0;
   z-index: 10;
   transition: background-color 0.3s, box-shadow 0.3s;
+}
 
-  &.scrolled {
-    background-color: rgba(27, 36, 48, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  }
+nav.navbar-active {
+  background-color: rgba(27, 36, 48, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .navbar {
@@ -69,14 +70,14 @@ nav {
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 1.2px;
-
-  span {
-    color: #e7b10a;
-    transition: color 0.3s;
-  }
 }
 
-.nav-items {
+.nav-brand span {
+  color: #e7b10a;
+  transition: color 0.3s;
+}
+
+.nav-item {
   display: flex;
   gap: 2rem;
 }
@@ -87,70 +88,134 @@ nav {
   transition: color 0.3s, transform 0.2s;
   position: relative;
   padding: 0.5rem 1rem;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #e7b10a;
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e7b10a;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
 
-  &:hover {
-    color: #e7b10a;
-    transform: translateY(-2px);
+.nav-link:hover {
+  color: #e7b10a;
+  transform: translateY(-2px);
+}
 
-    &::after {
-      transform: scaleX(1);
-    }
-  }
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 .hamburger {
   display: none;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 25px;
-  background: transparent;
+  background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   z-index: 10;
+}
 
-  &:focus {
-    outline: none;
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile Responsive Styles */
+@media only screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
   }
 
-  .bar {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
+  .nav-item {
+    position: absolute; /* Changed from fixed to absolute */
+    top: 100%; /* Position right below the navbar */
+    left: -100%;
+    width: 100%;
+    height: auto; /* Changed from calc(100vh - 70px) to auto */
+    background-color: #1b2430;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 0; /* Reduced padding */
+    transition: 0.3s ease-in-out;
+    gap: 1rem; /* Reduced gap */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
 
-    &.active {
-      &:first-child {
-        transform: rotate(45deg);
-      }
+  .nav-item.active {
+    left: 0;
+  }
 
-      &:nth-child(2) {
-        opacity: 0;
-      }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
 
-      &:nth-child(3) {
-        transform: rotate(-45deg);
-      }
-    }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-link {
+    font-size: 1.1rem; /* Slightly reduced font size */
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0; /* Reduced padding */
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  /* Rest of the styles remain the same */
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .resto-list,
+  .dishes-container,
+  .testimonials-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .dish-card,
+  .testimonial-card {
+    margin: 0 1rem;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .restaurant-section,
+  .featured-dishes,
+  .testimonials {
+    padding: 3rem 1rem;
   }
 }
 
+/* Hero Section */
 .hero-section {
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -178,21 +243,21 @@ nav {
   color: white;
   z-index: 1;
   padding: 2rem;
+}
 
-  h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
+.hero-text h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
 
-  p {
-    font-size: 1.4rem;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
+.hero-text p {
+  font-size: 1.4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
 /* Restaurant Section */
@@ -209,17 +274,17 @@ nav {
   color: #2c3639;
   position: relative;
   padding-bottom: 1rem;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: #e7b10a;
-  }
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #e7b10a;
 }
 
 .resto-list {
@@ -236,10 +301,10 @@ nav {
   transition: transform 0.3s;
   position: relative;
   background-color: #ffffff;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .resto-thumb {
@@ -284,6 +349,7 @@ nav {
   font-weight: 500;
 }
 
+/* Featured Dishes */
 .featured-dishes {
   padding: 5rem 2rem;
   background-color: #f9f5eb;
@@ -304,10 +370,10 @@ nav {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 300px;
   transition: transform 0.3s;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+.dish-card:hover {
+  transform: translateY(-5px);
 }
 
 .dish-image {
@@ -333,6 +399,7 @@ nav {
   line-height: 1.6;
 }
 
+/* Testimonials */
 .testimonials {
   padding: 5rem 2rem;
   background-color: #dfd3c3;
@@ -353,10 +420,10 @@ nav {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 300px;
   transition: transform 0.3s;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+.testimonial-card:hover {
+  transform: translateY(-5px);
 }
 
 .testimonial-text {
@@ -372,6 +439,7 @@ nav {
   color: #1b2430;
 }
 
+/* Footer */
 footer {
   background-color: #1b2430;
   color: white;
@@ -379,74 +447,7 @@ footer {
   padding: 2rem;
 }
 
-@media only screen and (max-width: 768px) {
-  .nav-items {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background-color: #1b2430;
-    padding: 2rem 5%;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 5;
-    visibility: hidden;
-    opacity: 0;
-
-    &.active {
-      transform: translateY(0);
-      visibility: visible;
-      opacity: 1;
-      display: flex;
-    }
-  }
-
-  .nav-link {
-    padding: 1rem 0;
-    font-size: 1.1rem;
-    text-align: center;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .hero-text {
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-    }
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .resto-list,
-  .dishes-container,
-  .testimonials-container {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .dish-card,
-  .testimonial-card {
-    margin: 0 1rem;
-  }
-
-  .navbar,
-  .restaurant-section,
-  .featured-dishes,
-  .testimonials {
-    padding: 3rem 1rem;
-  }
-}
-
+/* Tablet Responsive */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .resto-list {
     grid-template-columns: repeat(2, 1fr);
@@ -461,6 +462,7 @@ footer {
   }
 }
 
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
