@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="card-title">${restaurant.name}</h3>
           <div class="resto-rate">Rating: <span class="rate">${
             restaurant.rating
-          }</span></div>
+          } ⭐</span></div>
           <p>${restaurant.description.slice(0, 150)}...</p>
         </div>
         <div class="resto-place">${restaurant.city}</div>
