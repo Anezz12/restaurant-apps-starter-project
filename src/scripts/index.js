@@ -1,5 +1,5 @@
 import "regenerator-runtime"; /* for async await transpile */
-import "../styles/main.css";
+import "../styles/main.scss";
 import restaurantData from "../public/data/DATA.json";
 
 document.addEventListener("DOMContentLoaded", () => {

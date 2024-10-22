@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
@@ -25,11 +26,30 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
-
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src/templates/index.html"),

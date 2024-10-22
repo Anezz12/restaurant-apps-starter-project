@@ -1,0 +1,512 @@
+// Variables
+$font-primary: "Poppins", sans-serif;
+$font-secondary: "Playfair Display", serif;
+$color-primary: #1b2430;
+$color-secondary: #e7b10a;
+$color-text: #2c3639;
+$color-white: #ffffff;
+$color-bg-light: #f9f5eb;
+$color-bg-testimonial: #dfd3c3;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin min-touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+// Imports
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap");
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Base styles
+body {
+  font-family: $font-primary;
+  line-height: 1.6;
+  color: $color-text;
+  background-color: $color-white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  @include min-touch-target;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+// Skip to Content
+.skip-to-content {
+  position: absolute;
+  top: -999px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 12px 24px;
+  @include min-touch-target;
+  z-index: 1000;
+  border-radius: 0 0 8px 8px;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// Navigation
+nav {
+  width: 100%;
+  background-color: $color-primary;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  transition: background-color 0.3s, box-shadow 0.3s;
+
+  &.navbar-active {
+    background-color: rgba($color-primary, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  font-family: $font-secondary;
+  color: $color-white;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  @include min-touch-target;
+
+  span {
+    color: $color-secondary;
+    transition: color 0.3s;
+  }
+}
+
+.nav-item {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: $color-white;
+  font-weight: 500;
+  transition: color 0.3s, transform 0.2s;
+  position: relative;
+  padding: 12px 24px;
+  @include min-touch-target;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $color-secondary;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    color: $color-secondary;
+    transform: translateY(-2px);
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+// Hamburger Menu
+.hamburger {
+  @include min-touch-target;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: $color-white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.active {
+    .bar {
+      &:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+// Hero Section
+.hero-section {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../public/images/heros/hero-image_4.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  @include flex-center;
+  margin-bottom: 2rem;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-text {
+  text-align: center;
+  color: $color-white;
+  z-index: 1;
+  padding: 2rem;
+
+  h1 {
+    font-family: $font-secondary;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  p {
+    font-size: 1.4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+}
+
+// Restaurant Section
+.restaurant-section {
+  padding: 5rem 2rem;
+  background-color: $color-white;
+}
+
+.section-title {
+  font-family: $font-secondary;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.75rem;
+  color: $color-text;
+  position: relative;
+  padding-bottom: 1rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: $color-secondary;
+  }
+}
+
+.resto-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+// Card Styles
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  position: relative;
+  background-color: $color-white;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.resto-thumb {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-family: $font-secondary;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: $color-text;
+}
+
+.resto-rate {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .rate {
+    color: $color-secondary;
+    font-weight: 600;
+  }
+}
+
+.resto-place {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: $color-secondary;
+  color: $color-white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+// Featured Dishes
+.featured-dishes {
+  padding: 5rem 2rem;
+  background-color: $color-bg-light;
+}
+
+.dishes-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+.dish-card {
+  background-color: $color-white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.dish-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.dish-info {
+  padding: 1.5rem;
+}
+
+.dish-name {
+  font-family: $font-secondary;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: $color-text;
+}
+
+.dish-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+// Testimonials
+.testimonials {
+  padding: 5rem 2rem;
+  background-color: $color-bg-testimonial;
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+.testimonial-card {
+  background-color: $color-white;
+  border-radius: 15px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: $color-text;
+  line-height: 1.8;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  text-align: right;
+  color: $color-primary;
+}
+
+// Footer
+footer {
+  background-color: $color-primary;
+  color: $color-white;
+  text-align: center;
+  padding: 2rem;
+}
+
+// Media Queries
+@media only screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-item {
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    width: 100%;
+    height: auto;
+    background-color: $color-primary;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 0;
+    transition: 0.3s ease-in-out;
+    gap: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    &.active {
+      left: 0;
+    }
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .hero-text {
+    h1 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .resto-list,
+  .dishes-container,
+  .testimonials-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .dish-card,
+  .testimonial-card {
+    margin: 0 1rem;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .restaurant-section,
+  .featured-dishes,
+  .testimonials {
+    padding: 3rem 1rem;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .resto-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-text {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
