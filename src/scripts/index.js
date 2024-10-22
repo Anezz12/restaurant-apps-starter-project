@@ -37,28 +37,36 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  // Function to create and append elements
-  const createElement = (tag, className, innerHTML) => {
+  const createElement = (tag, className, innerHTML, ariaAttributes = {}) => {
     const element = document.createElement(tag);
     element.className = className;
     element.innerHTML = innerHTML;
+
+    Object.entries(ariaAttributes).forEach(([key, value]) => {
+      element.setAttribute(key, value);
+    });
+
     return element;
   };
 
-  // Function to display featured dishes
   const displayFeaturedDishes = () => {
     const dishesContainer = document.querySelector(".dishes-container");
-    featuredDishes.forEach((dish) => {
+    featuredDishes.forEach((dish, index) => {
       const dishCard = createElement(
         "div",
         "dish-card",
         `
         <img src="${dish.image}" alt="${dish.name}" class="dish-image">
         <div class="dish-info">
-          <h3 class="dish-name">${dish.name}</h3>
+          <h3 class="dish-name" id="dish-${index}">${dish.name}</h3>
           <p class="dish-description">${dish.description}</p>
         </div>
-      `
+      `,
+        {
+          role: "article",
+          "aria-labelledby": `dish-${index}`,
+          tabindex: "0",
+        }
       );
       dishesContainer.appendChild(dishCard);
     });
@@ -69,29 +77,45 @@ document.addEventListener("DOMContentLoaded", () => {
     const testimonialContainer = document.querySelector(
       ".testimonials-container"
     );
-    testimonials.forEach((testimonial) => {
+    testimonials.forEach((testimonial, index) => {
       const testimonialCard = createElement(
         "div",
         "testimonial-card",
         `
-        <p class="testimonial-text">"${testimonial.text}"</p>
+        <p class="testimonial-text" id="testimonial-${index}">"${testimonial.text}"</p>
         <p class="testimonial-author">- ${testimonial.author}</p>
-      `
+      `,
+        {
+          role: "article",
+          "aria-labelledby": `testimonial-${index}`,
+          tabindex: "0",
+        }
       );
       testimonialContainer.appendChild(testimonialCard);
     });
   };
 
-  // Toggle menu functionality
+  // Enhanced toggle menu functionality with accessibility
   const toggleMenu = () => {
     const navItem = document.querySelector(".nav-item");
     const hamburger = document.querySelector(".hamburger");
+    const isExpanded = hamburger.getAttribute("aria-expanded") === "true";
+
     navItem.classList.toggle("active");
     hamburger.classList.toggle("active");
+    hamburger.setAttribute("aria-expanded", !isExpanded);
   };
 
-  // Event listeners for menu
-  document.querySelector(".hamburger").addEventListener("click", toggleMenu);
+  // Enhanced menu event listeners
+  const hamburgerBtn = document.querySelector(".hamburger");
+  hamburgerBtn.addEventListener("click", toggleMenu);
+  hamburgerBtn.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
   document.querySelectorAll(".nav-item .nav-link").forEach((link) => {
     link.addEventListener("click", () => {
       if (document.querySelector(".nav-item").classList.contains("active")) {
@@ -100,17 +124,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Navbar background change on scroll
+  // Enhanced navbar scroll functionality
   window.addEventListener("scroll", () => {
     const navEl = document.querySelector("#nav");
     navEl.classList.toggle("navbar-active", window.scrollY > 50);
   });
 
-  // Function to display restaurants
+  // Enhanced restaurant display function with improved accessibility
   const displayRestaurants = (restaurants) => {
     const restoListEl = document.querySelector(".resto-list");
-    restoListEl.innerHTML = ""; // Clear existing content
-    restaurants.forEach((restaurant) => {
+    restoListEl.innerHTML = "";
+
+    restaurants.forEach((restaurant, index) => {
       const card = createElement(
         "div",
         "card",
@@ -119,20 +144,45 @@ document.addEventListener("DOMContentLoaded", () => {
           restaurant.name
         }" class="resto-thumb">
         <div class="card-text">
-          <h3 class="card-title">${restaurant.name}</h3>
-          <div class="resto-rate">Rating: <span class="rate">${
+          <h3 class="card-title" id="resto-${index}">${restaurant.name}</h3>
+          <div class="resto-rate" aria-label="Rating ${
             restaurant.rating
-          } ⭐</span></div>
+          } dari 5">
+            Rating: <span class="rate">${restaurant.rating} ⭐</span>
+          </div>
           <p>${restaurant.description.slice(0, 150)}...</p>
         </div>
         <div class="resto-place">${restaurant.city}</div>
-      `
+      `,
+        {
+          role: "article",
+          "aria-labelledby": `resto-${index}`,
+          tabindex: "0",
+        }
       );
+
+      // Add keyboard interaction
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          // Add your restaurant detail navigation logic here
+          console.log(`Navigating to restaurant: ${restaurant.name}`);
+        }
+      });
+
       restoListEl.appendChild(card);
     });
   };
 
-  // Display restaurants and handle errors
+  // Handle skip to content
+  const skipLink = document.querySelector(".skip-to-content");
+  skipLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    const mainContent = document.querySelector("#maincontent");
+    mainContent.focus();
+    mainContent.scrollIntoView();
+  });
+
+  // Display content and handle errors with accessibility improvements
   try {
     const restaurants = restaurantData.restaurants;
     displayRestaurants(restaurants);
@@ -141,7 +191,14 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (error) {
     console.error("Error loading data:", error);
     const restoListEl = document.querySelector(".resto-list");
-    restoListEl.innerHTML =
-      "<p>Failed to load data. Please try again later.</p>";
+    restoListEl.innerHTML = createElement(
+      "p",
+      "error-message",
+      "Failed to load data. Please try again later.",
+      {
+        role: "alert",
+        "aria-live": "polite",
+      }
+    ).outerHTML;
   }
 });
