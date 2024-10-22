@@ -31,10 +31,10 @@ a {
   padding: 10px 20px;
   z-index: 100;
   transition: top 0.3s;
-}
 
-.to-content:focus {
-  top: 0;
+  &:focus {
+    top: 0;
+  }
 }
 
 nav {
@@ -45,11 +45,11 @@ nav {
   top: 0;
   z-index: 10;
   transition: background-color 0.3s, box-shadow 0.3s;
-}
 
-nav.scrolled {
-  background-color: rgba(0, 0, 0, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  &.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .navbar {
@@ -66,11 +66,11 @@ nav.scrolled {
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 1px;
-}
 
-.nav-brand span {
-  color: #ffd700;
-  transition: color 0.3s;
+  span {
+    color: #ffd700;
+    transition: color 0.3s;
+  }
 }
 
 .nav-item {
@@ -84,27 +84,27 @@ nav.scrolled {
   transition: color 0.3s, transform 0.2s;
   position: relative;
   padding: 5px 0;
-}
 
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #ffd700;
-  transform: scaleX(0);
-  transition: transform 0.3s;
-}
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ffd700;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
 
-.nav-link:hover {
-  color: #ffd700;
-  transform: translateY(-2px);
-}
+  &:hover {
+    color: #ffd700;
+    transform: translateY(-2px);
 
-.nav-link:hover::after {
-  transform: scaleX(1);
+    &::after {
+      transform: scaleX(1);
+    }
+  }
 }
 
 .hamburger {
@@ -126,12 +126,12 @@ nav.scrolled {
     z-index: 5;
     visibility: hidden;
     opacity: 0;
-  }
 
-  .nav-item.active {
-    transform: translateY(0);
-    visibility: visible;
-    opacity: 1;
+    &.active {
+      transform: translateY(0);
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
   .nav-link {
@@ -151,32 +151,34 @@ nav.scrolled {
     cursor: pointer;
     padding: 0;
     z-index: 10;
-  }
 
-  .hamburger:focus {
-    outline: none;
-  }
+    &:focus {
+      outline: none;
+    }
 
-  .bar {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-  }
+    .bar {
+      width: 30px;
+      height: 3px;
+      background-color: white;
+      border-radius: 10px;
+      transition: all 0.3s linear;
+      position: relative;
+      transform-origin: 1px;
 
-  .hamburger.active .bar:first-child {
-    transform: rotate(45deg);
-  }
+      &.active {
+        &:first-child {
+          transform: rotate(45deg);
+        }
 
-  .hamburger.active .bar:nth-child(2) {
-    opacity: 0;
-  }
+        &:nth-child(2) {
+          opacity: 0;
+        }
 
-  .hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg);
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
   }
 }
 
@@ -205,15 +207,15 @@ nav.scrolled {
   color: white;
   z-index: 1;
   padding: 20px;
-}
 
-.hero-text h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
 
-.hero-text p {
-  font-size: 1.2rem;
+  p {
+    font-size: 1.2rem;
+  }
 }
 
 .restaurant-section {
@@ -239,10 +241,10 @@ nav.scrolled {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
   position: relative;
-}
 
-.card:hover {
-  transform: translateY(-5px);
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .resto-thumb {
@@ -281,6 +283,81 @@ nav.scrolled {
   font-size: 0.9rem;
 }
 
+.featured-dishes {
+  padding: 80px 20px;
+  background-color: #f9f9f9;
+}
+
+.dishes-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.dish-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.dish-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.dish-info {
+  padding: 20px;
+}
+
+.dish-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.dish-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.testimonials {
+  padding: 80px 20px;
+  background-color: #f0f0f0;
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.testimonial-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  text-align: right;
+}
+
 footer {
   background-color: #333;
   color: white;
@@ -299,5 +376,19 @@ footer {
 
   .section-title {
     font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dishes-container,
+  .testimonials-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dish-card,
+  .testimonial-card {
+    width: 100%;
+    max-width: 300px;
   }
 }
